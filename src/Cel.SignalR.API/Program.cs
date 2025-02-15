@@ -1,7 +1,22 @@
 using Cel.SignalR.Infra;
 using Cel.SignalR.Application;
+using Cel.SignalR.Infra.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", policy =>
+    {
+        policy.AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowCredentials()
+              .SetIsOriginAllowed(origin => true);
+    });
+});
+
+// SignalR
+builder.Services.AddSignalR();
 
 // Add services to the container.
 
@@ -16,6 +31,10 @@ builder.Services
     .AddServices();
 
 var app = builder.Build();
+
+app.UseCors("CorsPolicy");
+
+app.MapHub<ChatHub>("/chatHub");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Channel Chat</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+</head>
+
+<body>
+    <h2>Multi-Channel Chat</h2>
+
+    <input id="username" type="text" placeholder="Enter your name">
+    <input id="channel" type="text" placeholder="Enter channel name">
+    <button onclick="joinChannel()">Join Channel</button>
+    <button onclick="leaveChannel()">Leave Channel</button>
+
+    <br><br>
+
+    <input id="message" type="text" placeholder="Enter message">
+    <button onclick="sendMessage()">Send Message</button>
+
+    <ul id="messagesList">
+        
+    </ul>
+
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("https://localhost:7047/chatHub")
+            .configureLogging(signalR.LogLevel.Information)
+            .build();
+
+        connection.start().catch(err => console.error(err));
+
+        function joinChannel() {
+            let channel = document.getElementById("channel").value;
+            connection.invoke("JoinChannel", channel);
+        }
+
+        function leaveChannel() {
+            let channel = document.getElementById("channel").value;
+            connection.invoke("LeaveChannel", channel);
+        }
+
+        function sendMessage() {
+            let user = document.getElementById("username").value;
+            let message = document.getElementById("message").value;
+            let channel = document.getElementById("channel").value;
+
+            connection.invoke("SendMessage", channel, user, message);
+        }
+
+        connection.on("ReceiveMessage", (user, message) => {
+            debugger;
+            let li = document.createElement("li");
+            li.textContent = `${user}: ${message}`;
+            document.getElementById("messagesList").appendChild(li);
+        });
+    </script>
+</body>
+
+</html>
