@@ -1,0 +1,6 @@
+@Cel.SignalR.API_HostAddress = http://localhost:5288
+
+GET {{Cel.SignalR.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
