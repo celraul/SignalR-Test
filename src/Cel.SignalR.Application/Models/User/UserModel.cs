@@ -1,4 +1,4 @@
-﻿namespace Cel.SignalR.Application.Models.Users;
+﻿namespace Cel.SignalR.Application.Models.User;
 
 public class UserModel
 {

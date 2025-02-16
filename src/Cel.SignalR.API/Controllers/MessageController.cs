@@ -1,5 +1,6 @@
 using Cel.SignalR.Application.Models.Message;
 using Cel.SignalR.Application.UseCases.SendMessage.Commands;
+using Cel.SignalR.Application.UseCases.SendMessage.Queries.GetUserMessages;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,6 +23,14 @@ namespace Cel.SignalR.API.Controllers
         public async Task<ActionResult> Post([FromBody] MessageModel message)
         {
             bool response = await _mediator.Send(new SendMessageCommand(message));
+
+            return Ok(response);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Get([FromQuery] string id)
+        {
+            List<MessageModel> response = await _mediator.Send(new GetUserMessagesQuery(id));
 
             return Ok(response);
         }

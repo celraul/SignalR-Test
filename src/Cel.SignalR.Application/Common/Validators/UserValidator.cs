@@ -1,4 +1,4 @@
-﻿using Cel.SignalR.Application.Models.Users;
+﻿using Cel.SignalR.Application.Models.User;
 using FluentValidation;
 
 namespace Cel.SignalR.Application.Common.Validators;
