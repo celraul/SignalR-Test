@@ -11,8 +11,8 @@
 <body>
     <h2>Multi-Channel Chat</h2>
 
-    <input id="username" type="text" placeholder="Enter your name">
-    <input id="channel" type="text" placeholder="Enter channel name">
+    <input id="username" type="text" placeholder="Enter your name"value="user test">
+    <input id="channel" type="text" placeholder="Enter channel name" value="NotifyChannel">
     <button onclick="joinChannel()">Join Channel</button>
     <button onclick="leaveChannel()">Leave Channel</button>
 
@@ -34,8 +34,8 @@
         connection.start().catch(err => console.error(err));
 
         function joinChannel() {
-            let channel = document.getElementById("channel").value;
-            connection.invoke("JoinChannel", channel);
+            let groupName = document.getElementById("channel").value;
+            connection.invoke("JoinChannel", groupName);
         }
 
         function leaveChannel() {
@@ -48,10 +48,10 @@
             let message = document.getElementById("message").value;
             let channel = document.getElementById("channel").value;
 
-            connection.invoke("SendMessage", channel, user, message);
+            connection.invoke("SendMessageToChannel", channel, user, message);
         }
 
-        connection.on("ReceiveMessage", (user, message) => {
+        connection.on("ReceiveChannelMessage", (user, message) => {
             debugger;
             let li = document.createElement("li");
             li.textContent = `${user}: ${message}`;

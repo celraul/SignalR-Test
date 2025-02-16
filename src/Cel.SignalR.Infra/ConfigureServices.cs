@@ -1,5 +1,6 @@
 ﻿using Cel.SignalR.Application.Interfaces;
 using Cel.SignalR.Infra.EntityCore;
+using Cel.SignalR.Infra.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +12,7 @@ public static class ConfigureServices
     public static IServiceCollection AddInfraServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDataBase()
+            .AddSignalrServices()
             .AddRepositories();
 
         return services;
@@ -20,6 +22,14 @@ public static class ConfigureServices
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+        return services;
+    }
+
+    private static IServiceCollection AddSignalrServices(this IServiceCollection services)
+    {
+        services.AddSignalR();
+        services.AddScoped<IHubContext, ChatHubContext>();
 
         return services;
     }

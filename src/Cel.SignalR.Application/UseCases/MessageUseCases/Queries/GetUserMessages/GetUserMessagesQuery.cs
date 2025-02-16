@@ -4,7 +4,7 @@ using Cel.SignalR.Application.Models.Message;
 using Cel.SignalR.Domain.Entities;
 using MediatR;
 
-namespace Cel.SignalR.Application.UseCases.SendMessage.Queries.GetUserMessages;
+namespace Cel.SignalR.Application.UseCases.MessageUseCases.Queries.GetUserMessages;
 
 public record GetUserMessagesQuery(string UserId) : IRequest<List<MessageModel>>;
 

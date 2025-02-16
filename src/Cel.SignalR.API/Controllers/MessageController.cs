@@ -1,6 +1,6 @@
 using Cel.SignalR.Application.Models.Message;
-using Cel.SignalR.Application.UseCases.SendMessage.Commands;
-using Cel.SignalR.Application.UseCases.SendMessage.Queries.GetUserMessages;
+using Cel.SignalR.Application.UseCases.MessageUseCases.Commands;
+using Cel.SignalR.Application.UseCases.MessageUseCases.Queries.GetUserMessages;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

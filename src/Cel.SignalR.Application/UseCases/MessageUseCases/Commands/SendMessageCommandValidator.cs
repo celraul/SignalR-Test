@@ -1,7 +1,7 @@
 ﻿using Cel.SignalR.Application.Common.Validators;
 using FluentValidation;
 
-namespace Cel.SignalR.Application.UseCases.SendMessage.Commands;
+namespace Cel.SignalR.Application.UseCases.MessageUseCases.Commands;
 
 public class SendMessageCommandValidator : AbstractValidator<SendMessageCommand>
 {

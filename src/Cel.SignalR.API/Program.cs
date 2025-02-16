@@ -14,10 +14,6 @@ builder.Services.AddCors(options =>
               .SetIsOriginAllowed(origin => true);
     });
 });
-
-// SignalR
-builder.Services.AddSignalR();
-
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -34,7 +30,7 @@ var app = builder.Build();
 
 app.UseCors("CorsPolicy");
 
-app.MapHub<ChatHub>("/chatHub");
+app.MapHub<ChatHubContext>($"/{ChatHubContext.HubName}");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
